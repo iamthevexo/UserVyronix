@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZELVIOR | Graphics Portfolio</title>
+    <title>VYRONIX | Digital Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -19,7 +19,7 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             border-radius: 16px;
         }
@@ -42,14 +42,6 @@
             -webkit-user-drag: none;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
-        ::-webkit-scrollbar-thumb { 
-            background: rgba(255, 255, 255, 0.1); 
-            border-radius: 10px; 
-        }
-
         .orb {
             position: fixed;
             width: 50vw;
@@ -57,99 +49,67 @@
             filter: blur(120px);
             border-radius: 50%;
             z-index: -1;
-            opacity: 0.2;
+            opacity: 0.15;
         }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Background Decoration -->
     <div class="orb bg-purple-900 top-[-10%] left-[-10%]"></div>
     <div class="orb bg-blue-900 bottom-[-10%] right-[-10%]"></div>
 
-    <!-- Navigation -->
+    <!-- Nav -->
     <nav class="fixed top-0 left-0 right-0 z-40 p-6 flex justify-center pointer-events-none">
         <div class="glass w-full max-w-2xl flex items-center gap-4 p-3 px-6 pointer-events-auto">
             <div class="hidden sm:flex items-center gap-2 pr-4 border-r border-white/10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.707-.484 2.152-1.222a2.31 2.31 0 0 1 2.813-1.011C18.25 20.25 22 17.5 22 12c0-5.5-4.5-10-10-10Z"/></svg>
-                <span class="font-bold tracking-tight text-lg">ZELVIOR</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.707-.484 2.152-1.222a2.31 2.31 0 0 1 2.813-1.011C18.25 20.25 22 17.5 22 12c0-5.5-4.5-10-10-10Z"/></svg>
+                <span class="font-bold tracking-tighter text-lg">VYRONIX</span>
             </div>
             <div class="flex-1 flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-40"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                <input 
-                    type="text" 
-                    id="searchBar"
-                    placeholder="Search masterpieces..." 
-                    class="bg-transparent border-none outline-none w-full text-white placeholder:text-white/30 text-sm sm:text-base"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" class="opacity-40"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="searchBar" placeholder="Search gallery..." class="bg-transparent border-none outline-none w-full text-white placeholder:text-white/20 text-sm">
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
     <header class="pt-32 pb-12 px-6 text-center max-w-4xl mx-auto">
-        <h1 class="text-4xl sm:text-6xl font-black mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/80 to-white/40 leading-tight">
-            Visual Symphony
-        </h1>
-        <p class="text-white/60 text-lg font-light max-w-xl mx-auto">
-            A curated collection of digital art exploring light, form, and futuristic aesthetics.
-        </p>
+        <h1 class="text-4xl sm:text-6xl font-black mb-4 uppercase tracking-tighter">Vyronix</h1>
+        <p class="text-white/40 text-sm tracking-[0.2em] font-light">Digital Portfolio of Vyronix</p>
     </header>
 
-    <!-- Gallery Container -->
     <main class="px-6 pb-32 max-w-[1400px] mx-auto">
         <div id="gallery" class="masonry">
-            <!-- Items injected by JS -->
-            <div id="loading" class="flex flex-col items-center justify-center py-20 space-y-4 col-span-full">
-                <div class="w-12 h-12 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
-                <p class="text-white/40 animate-pulse">Syncing with Gallery...</p>
+            <div id="loading" class="flex flex-col items-center justify-center py-20 col-span-full">
+                <div class="w-10 h-10 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin"></div>
             </div>
         </div>
     </main>
 
     <!-- Modal -->
     <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-10 hidden">
-        <div id="modalOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-md"></div>
-        <div class="glass relative w-full max-w-5xl max-h-full overflow-hidden flex flex-col md:flex-row z-10">
+        <div id="modalOverlay" class="absolute inset-0 bg-black/90 backdrop-blur-xl"></div>
+        <div class="glass relative w-full max-w-5xl max-h-full overflow-hidden flex flex-col md:flex-row z-10 border-white/5">
             <button id="closeModal" class="absolute top-4 right-4 z-[60] p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
-            
-            <div class="relative flex-1 bg-black/40 flex items-center justify-center overflow-hidden min-h-[300px]">
-                <div class="absolute inset-0 z-10"></div> <!-- Protection Layer -->
-                <img id="modalImage" src="" alt="" class="max-w-full max-h-[80vh] object-contain no-select">
+            <div class="relative flex-1 bg-black/20 flex items-center justify-center overflow-hidden min-h-[300px]">
+                <img id="modalImage" src="" class="max-w-full max-h-[85vh] object-contain no-select">
             </div>
-
-            <div class="w-full md:w-80 p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/10">
+            <div class="w-full md:w-80 p-10 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/5">
                 <div>
-                    <div class="flex items-center gap-2 text-purple-400 mb-4 text-sm font-medium">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                        <span>Art Details</span>
-                    </div>
-                    <h2 id="modalTitle" class="text-2xl font-bold mb-4 uppercase tracking-tight"></h2>
-                    <p id="modalDesc" class="text-white/60 text-sm leading-relaxed mb-6"></p>
+                    <h2 id="modalTitle" class="text-2xl font-black mb-4 uppercase tracking-tighter"></h2>
+                    <p id="modalDesc" class="text-white/50 text-xs leading-relaxed"></p>
                 </div>
-                <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between opacity-40 text-[10px] uppercase tracking-widest font-bold">
-                    <span>By Zelvior</span>
-                    <span>© 2026</span>
-                </div>
+                <div class="mt-8 pt-6 border-t border-white/10 text-[9px] uppercase tracking-[0.4em] font-black opacity-30">BY ZELVIOR</div>
             </div>
         </div>
     </div>
 
-    <!-- Branding Footer -->
-    <footer class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
-        <div class="glass px-8 py-3 flex items-center gap-4 transition-all duration-300 hover:scale-105">
-            <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-            <span class="text-xs font-bold tracking-[0.3em] text-white/80">BY ZELVIOR</span>
-            <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-        </div>
-    </footer>
-
-    <!-- Firebase Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -159,88 +119,73 @@
             storageBucket: "vyronixsportfolio.firebasestorage.app",
             messagingSenderId: "395085884274",
             appId: "1:395085884274:web:fec51059b0b31e4e334beb",
-            measurementId: "G-MRZK70HHNH"
+            measurementId: "G-MRZK70HHNH",
+            databaseURL: "https://vyronixsportfolio-default-rtdb.asia-southeast1.firebasedatabase.app/"
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const db = getDatabase(app);
         const auth = getAuth(app);
         const appId = "vyronixs-portfolio";
 
         let allItems = [];
-
-        // Protection Logic
-        document.addEventListener('contextmenu', e => e.preventDefault());
-
-        // UI Elements
         const galleryEl = document.getElementById('gallery');
         const searchInput = document.getElementById('searchBar');
         const modal = document.getElementById('modal');
-        const modalImage = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDesc = document.getElementById('modalDesc');
 
-        const openModal = (item) => {
-            modalImage.src = item.imageUrl;
-            modalTitle.innerText = item.title;
-            modalDesc.innerText = item.description || "Digital masterpiece by Zelvior.";
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        };
-
-        const closeModal = () => {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        };
-
-        document.getElementById('closeModal').onclick = closeModal;
-        document.getElementById('modalOverlay').onclick = closeModal;
+        document.addEventListener('contextmenu', e => e.preventDefault());
 
         const renderItems = (items) => {
-            const filtered = items.filter(i => 
-                i.title?.toLowerCase().includes(searchInput.value.toLowerCase())
-            );
-
+            const filtered = items.filter(i => i.title?.toLowerCase().includes(searchInput.value.toLowerCase()));
             galleryEl.innerHTML = filtered.map(item => `
-                <div class="masonry-item glass group relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02]" 
-                     onclick="window.openArt('${item.id}')">
-                    <div class="absolute inset-0 z-10"></div> <!-- Protection Layer -->
-                    <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-auto object-cover no-select transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 z-20">
-                        <h3 class="text-lg font-bold">${item.title}</h3>
+                <div class="masonry-item glass group relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02]" onclick="window.openArt('${item.id}')">
+                    <img src="${item.imageUrl}" class="w-full h-auto object-cover no-select transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-black uppercase tracking-widest truncate mr-2">${item.title}</h3>
+                            <div class="p-2 bg-white/20 rounded-full backdrop-blur-md shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 3 6 6-6 6"/><path d="M9 21 3 15l6-6"/><path d="M21 9H9s-4 0-4 4v8"/></svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `).join('');
-
-            if (filtered.length === 0) {
-                galleryEl.innerHTML = '<div class="col-span-full py-20 text-center opacity-40">No matching artwork found.</div>';
-            }
+            if (filtered.length === 0) galleryEl.innerHTML = '<div class="col-span-full py-20 text-center opacity-20 text-xs tracking-[0.5em] font-black">NO RESULTS</div>';
         };
 
         window.openArt = (id) => {
             const item = allItems.find(i => i.id === id);
-            if (item) openModal(item);
+            if (item) {
+                document.getElementById('modalImage').src = item.imageUrl;
+                document.getElementById('modalTitle').innerText = item.title;
+                // Sync the description field
+                document.getElementById('modalDesc').innerText = item.description || "Digital masterpiece by Zelvior.";
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        document.getElementById('closeModal').onclick = () => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
         };
 
         searchInput.addEventListener('input', () => renderItems(allItems));
 
-        // Start Auth & Listeners
         async function start() {
             try {
                 await signInAnonymously(auth);
-                const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'portfolio_items');
-                
-                onSnapshot(colRef, (snapshot) => {
-                    allItems = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const portfolioRef = ref(db, `artifacts/${appId}/public/portfolio_items`);
+                onValue(portfolioRef, (snapshot) => {
+                    const data = snapshot.val();
+                    allItems = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
+                    allItems.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
                     renderItems(allItems);
-                }, (err) => {
-                    galleryEl.innerHTML = `<div class="p-10 glass text-red-400 text-center">Collection "portfolio_items" not found or access denied.</div>`;
                 });
             } catch (err) {
-                console.error("Auth failed", err);
+                galleryEl.innerHTML = '<div class="p-10 text-center opacity-50">SYNC ERROR</div>';
             }
         }
-
         start();
     </script>
 </body>
