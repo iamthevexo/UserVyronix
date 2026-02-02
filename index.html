@@ -110,6 +110,39 @@
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
+
+        /* Enhanced Popup Animations */
+        @keyframes popupIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes popupOut {
+            0% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(0.95) translateY(10px); }
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #introPopup:not(.hidden) .popup-content {
+            animation: popupIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        #introPopup.closing .popup-content {
+            animation: popupOut 0.3s ease-in forwards;
+        }
+        #introPopup.closing #introOverlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .stagger-1 { animation: fadeInDown 0.6s ease forwards; animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation: fadeInUp 0.6s ease forwards; animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation: fadeInUp 0.6s ease forwards; animation-delay: 0.3s; opacity: 0; }
     </style>
 </head>
 <body>
@@ -161,19 +194,19 @@
 
     <!-- Intro Popup (Faizan Raza) -->
     <div id="introPopup" class="fixed inset-0 z-[100] flex items-center justify-center p-6 hidden">
-        <div id="introOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
-        <div class="glass relative w-full max-w-md overflow-hidden z-10 flex flex-col p-8 text-center animate-in fade-in zoom-in duration-300">
+        <div id="introOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"></div>
+        <div class="popup-content glass relative w-full max-w-md overflow-hidden z-10 flex flex-col p-8 text-center">
             <button id="closeIntroIcon" class="absolute top-4 right-4 p-2 text-white/40 hover:text-white transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
 
             <!-- Profile Section -->
-            <div class="mb-6 flex flex-col items-center">
+            <div class="mb-6 flex flex-col items-center stagger-1">
                 <div class="w-24 h-24 rounded-full border-2 border-white/20 p-1 mb-4 overflow-hidden bg-white/5 flex items-center justify-center">
                     <!-- Circular Profile Picture Frame -->
-                    <img src="https://via.placeholder.com/150" alt="https://ibb.co/rKFmrC2q" class="w-full h-full object-cover rounded-full">
+                    <img src="https://i.ibb.co/rKFmrC2q/pfp.jpg" alt="Faizan Raza" class="w-full h-full object-cover rounded-full">
                 </div>
-                <h2 class="text-2xl font-black tracking-tighter uppercase">Faizan  Raza</h2>
+                <h2 class="text-2xl font-black tracking-tighter uppercase">Faizan Raza</h2>
                 <p class="text-purple-400 font-bold text-xs tracking-widest mb-1">VYRONIX</p>
                 <div class="flex items-center gap-2 text-white/60 text-xs">
                     <span>Pakistan</span>
@@ -182,7 +215,7 @@
             </div>
 
             <!-- Intro Section -->
-            <div class="mb-8 text-left">
+            <div class="mb-8 text-left stagger-2">
                 <h3 class="text-[10px] font-black tracking-[0.3em] text-white/30 mb-2 uppercase">My Intro</h3>
                 <p class="text-sm text-white/70 leading-relaxed font-light">
                     Hello, I'm Faizan AKA VYRONIX! I am a graphics designer from Pakistan and my age is 16. I can't promise the best results like experienced professionals but I can guarantee that you might like my design. I will be honest in this that I sometimes use AI to generate visual assets but not the whole design. You can check some of my design by clicking the buttons below.
@@ -190,7 +223,7 @@
             </div>
 
             <!-- Links Grid -->
-            <div class="grid grid-cols-2 gap-3 mb-8">
+            <div class="grid grid-cols-2 gap-3 mb-8 stagger-3">
                 <a href="https://youtube.com/@thevexo.zelvior" target="_blank" class="glass-btn p-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.11 1 12 1 12s0 3.89.42 5.58a2.78 2.78 0 0 0 1.94 2c1.71.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.89 23 12 23 12s0-3.89-.42-5.58Z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
                     YouTube
@@ -209,7 +242,7 @@
                 </a>
             </div>
 
-            <button id="continueBtn" class="w-full bg-white text-black font-black uppercase text-xs tracking-widest py-4 rounded-xl hover:bg-white/90 active:scale-95 transition-all">
+            <button id="continueBtn" class="w-full bg-white text-black font-black uppercase text-xs tracking-widest py-4 rounded-xl hover:bg-white/90 active:scale-95 transition-all stagger-3">
                 Continue
             </button>
         </div>
@@ -265,15 +298,19 @@
 
         document.addEventListener('contextmenu', e => e.preventDefault());
 
-        // Popup Handlers
+        // Popup Handlers with Clean Exit
         const showIntro = () => {
-            introPopup.classList.remove('hidden');
+            introPopup.classList.remove('hidden', 'closing');
             document.body.style.overflow = 'hidden';
         };
 
         const hideIntro = () => {
-            introPopup.classList.add('hidden');
-            document.body.style.overflow = 'auto';
+            introPopup.classList.add('closing');
+            setTimeout(() => {
+                introPopup.classList.add('hidden');
+                introPopup.classList.remove('closing');
+                document.body.style.overflow = 'auto';
+            }, 300);
         };
 
         document.getElementById('openIntro').onclick = showIntro;
