@@ -207,20 +207,15 @@
     <!-- Intro Popup (Faizan Raza) -->
     <div id="introPopup" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 hidden">
         <div id="introOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"></div>
-        <!-- Fully Responsive Container: Uses max-height and overflow to fit small screens while looking professional on large ones -->
         <div class="popup-content glass relative w-full max-w-lg md:max-w-xl max-h-[90vh] flex flex-col z-10 overflow-hidden">
             
-            <!-- Fixed Close Button -->
             <button id="closeIntroIcon" class="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/40 hover:text-white transition-colors z-[20]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
 
-            <!-- Scrollable Content Area -->
             <div class="popup-scroll overflow-y-auto p-8 sm:p-10 md:p-12 flex flex-col text-center">
-                <!-- Profile Section -->
                 <div class="mb-8 flex flex-col items-center stagger-1">
                     <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-white/20 p-1 mb-6 overflow-hidden bg-white/5 flex items-center justify-center shrink-0">
-                        <!-- Circular Profile Picture Frame -->
                         <img src="https://i.ibb.co/rKFmrC2q/pfp.jpg" alt="Faizan Raza" class="w-full h-full object-cover rounded-full">
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-1">Faizan</h2>
@@ -231,7 +226,6 @@
                     </div>
                 </div>
 
-                <!-- Intro Section -->
                 <div class="mb-10 text-left stagger-2">
                     <h3 class="text-[9px] sm:text-[10px] font-black tracking-[0.3em] text-white/30 mb-3 uppercase">My Intro</h3>
                     <p class="text-sm sm:text-base text-white/70 leading-relaxed font-light">
@@ -239,7 +233,6 @@
                     </p>
                 </div>
 
-                <!-- Links Grid -->
                 <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-8 stagger-3">
                     <a href="https://youtube.com/@thevexo.zelvior" target="_blank" class="glass-btn p-3 sm:p-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm font-bold">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.11 1 12 1 12s0 3.89.42 5.58a2.78 2.78 0 0 0 1.94 2c1.71.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.89 23 12 23 12s0-3.89-.42-5.58Z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
@@ -259,7 +252,6 @@
                     </a>
                 </div>
 
-                <!-- Footer Action -->
                 <button id="continueBtn" class="w-full bg-white text-black font-black uppercase text-[10px] sm:text-xs tracking-widest py-4 sm:py-5 rounded-xl hover:bg-white/90 active:scale-95 transition-all stagger-3 mt-auto">
                     Continue
                 </button>
@@ -317,7 +309,6 @@
 
         document.addEventListener('contextmenu', e => e.preventDefault());
 
-        // Popup Handlers with Clean Exit
         const showIntro = () => {
             introPopup.classList.remove('hidden', 'closing');
             document.body.style.overflow = 'hidden';
@@ -337,12 +328,10 @@
         document.getElementById('closeIntroIcon').onclick = hideIntro;
         document.getElementById('introOverlay').onclick = hideIntro;
 
-        // Auto show popup on load
         window.addEventListener('load', () => {
             setTimeout(showIntro, 800);
         });
 
-        // Dynamic Image Observer for Loading/Unloading
         const imageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const img = entry.target;
@@ -388,7 +377,8 @@
                     </div>
                 `;
                 galleryEl.appendChild(itemDiv);
-                imageObserver.observe(itemDiv.querySelector('img'));
+                const img = itemDiv.querySelector('img');
+                if (img) imageObserver.observe(img);
             });
         };
 
@@ -414,23 +404,63 @@
             searchTimeout = setTimeout(() => renderItems(allItems), 150);
         });
 
+        // --- IMPROVED CACHING SYSTEM ---
+        const CACHE_KEY = `vyronix_cache_${appId}`;
+        
+        const loadFromCache = () => {
+            try {
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    const parsed = JSON.parse(cached);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        allItems = parsed;
+                        renderItems(allItems);
+                    }
+                }
+            } catch(e) { console.warn("Cache read skipped"); }
+        };
+
+        const saveToCache = (data) => {
+            try {
+                // Compression: Store only essentials to save space and avoid QuotaExceededError
+                // We keep IDs, Titles, and ImageURLs, but skip large descriptions if necessary
+                const compactData = data.slice(0, 50).map(item => ({
+                    id: item.id,
+                    title: item.title,
+                    imageUrl: item.imageUrl,
+                    createdAt: item.createdAt
+                }));
+                localStorage.setItem(CACHE_KEY, JSON.stringify(compactData));
+            } catch(e) {
+                console.warn("Storage full, clearing cache to recover...");
+                localStorage.removeItem(CACHE_KEY); // Clear if full to prevent repeated errors
+            }
+        };
+
         async function start() {
+            loadFromCache();
+
             try {
                 const authPromise = signInAnonymously(auth);
                 const portfolioRef = ref(db, `artifacts/${appId}/public/portfolio_items`);
                 
                 onValue(portfolioRef, (snapshot) => {
                     const data = snapshot.val();
-                    allItems = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
-                    allItems.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                    const newItems = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
+                    newItems.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                    
+                    allItems = newItems;
+                    saveToCache(allItems);
                     renderItems(allItems);
                 });
 
                 await authPromise;
             } catch (err) {
-                loadingEl.classList.add('hidden');
-                galleryEl.classList.remove('hidden');
-                galleryEl.innerHTML = '<div class="p-10 text-center opacity-50">SYNC ERROR</div>';
+                if (allItems.length === 0) {
+                    loadingEl.classList.add('hidden');
+                    galleryEl.classList.remove('hidden');
+                    galleryEl.innerHTML = '<div class="p-10 text-center opacity-50">SYNC ERROR</div>';
+                }
             }
         }
         start();
