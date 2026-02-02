@@ -143,6 +143,18 @@
         .stagger-1 { animation: fadeInDown 0.6s ease forwards; animation-delay: 0.1s; opacity: 0; }
         .stagger-2 { animation: fadeInUp 0.6s ease forwards; animation-delay: 0.2s; opacity: 0; }
         .stagger-3 { animation: fadeInUp 0.6s ease forwards; animation-delay: 0.3s; opacity: 0; }
+
+        /* Custom Scrollbar for the popup */
+        .popup-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .popup-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .popup-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -193,59 +205,65 @@
     </main>
 
     <!-- Intro Popup (Faizan Raza) -->
-    <div id="introPopup" class="fixed inset-0 z-[100] flex items-center justify-center p-6 hidden">
+    <div id="introPopup" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 hidden">
         <div id="introOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"></div>
-        <!-- Improved Height and Width for a more professional look -->
-        <div class="popup-content glass relative w-full max-w-lg md:max-w-xl min-h-[500px] overflow-hidden z-10 flex flex-col p-10 md:p-12 text-center">
-            <button id="closeIntroIcon" class="absolute top-6 right-6 p-2 text-white/40 hover:text-white transition-colors">
+        <!-- Fully Responsive Container: Uses max-height and overflow to fit small screens while looking professional on large ones -->
+        <div class="popup-content glass relative w-full max-w-lg md:max-w-xl max-h-[90vh] flex flex-col z-10 overflow-hidden">
+            
+            <!-- Fixed Close Button -->
+            <button id="closeIntroIcon" class="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/40 hover:text-white transition-colors z-[20]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
 
-            <!-- Profile Section -->
-            <div class="mb-8 flex flex-col items-center stagger-1">
-                <div class="w-28 h-28 rounded-full border-2 border-white/20 p-1 mb-6 overflow-hidden bg-white/5 flex items-center justify-center">
-                    <!-- Circular Profile Picture Frame -->
-                    <img src="https://i.ibb.co/rKFmrC2q/pfp.jpg" alt="Faizan Raza" class="w-full h-full object-cover rounded-full">
+            <!-- Scrollable Content Area -->
+            <div class="popup-scroll overflow-y-auto p-8 sm:p-10 md:p-12 flex flex-col text-center">
+                <!-- Profile Section -->
+                <div class="mb-8 flex flex-col items-center stagger-1">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-white/20 p-1 mb-6 overflow-hidden bg-white/5 flex items-center justify-center shrink-0">
+                        <!-- Circular Profile Picture Frame -->
+                        <img src="https://i.ibb.co/rKFmrC2q/pfp.jpg" alt="Faizan Raza" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black tracking-tighter uppercase mb-1">Faizan Raza</h2>
+                    <p class="text-purple-400 font-bold text-[10px] sm:text-xs tracking-widest mb-2">VYRONIX</p>
+                    <div class="flex items-center gap-2 text-white/60 text-[10px] sm:text-xs">
+                        <span>Pakistan</span>
+                        <span>🇵🇰</span>
+                    </div>
                 </div>
-                <h2 class="text-3xl font-black tracking-tighter uppercase mb-1">Faizan Raza</h2>
-                <p class="text-purple-400 font-bold text-xs tracking-widest mb-2">VYRONIX</p>
-                <div class="flex items-center gap-2 text-white/60 text-xs">
-                    <span>Pakistan</span>
-                    <span>🇵🇰</span>
+
+                <!-- Intro Section -->
+                <div class="mb-10 text-left stagger-2">
+                    <h3 class="text-[9px] sm:text-[10px] font-black tracking-[0.3em] text-white/30 mb-3 uppercase">My Intro</h3>
+                    <p class="text-sm sm:text-base text-white/70 leading-relaxed font-light">
+                        Hello, I'm Faizan AKA VYRONIX! I am a graphics designer from Pakistan and my age is 16. I can't promise the best results like experienced professionals but I can guarantee that you might like my design. I will be honest in this that I sometimes use AI to generate visual assets but not the whole design. You can check some of my design by clicking the buttons below.
+                    </p>
                 </div>
-            </div>
 
-            <!-- Intro Section -->
-            <div class="mb-10 text-left stagger-2">
-                <h3 class="text-[10px] font-black tracking-[0.3em] text-white/30 mb-3 uppercase">My Intro</h3>
-                <p class="text-base text-white/70 leading-relaxed font-light">
-                    Hello, I'm Faizan AKA VYRONIX! I am a graphics designer from Pakistan and my age is 16. I can't promise the best results like experienced professionals but I can guarantee that you might like my design. I will be honest in this that I sometimes use AI to generate visual assets but not the whole design. You can check some of my design by clicking the buttons below.
-                </p>
-            </div>
+                <!-- Links Grid -->
+                <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-8 stagger-3">
+                    <a href="https://youtube.com/@thevexo.zelvior" target="_blank" class="glass-btn p-3 sm:p-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.11 1 12 1 12s0 3.89.42 5.58a2.78 2.78 0 0 0 1.94 2c1.71.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.89 23 12 23 12s0-3.89-.42-5.58Z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+                        YouTube
+                    </a>
+                    <a href="https://forms.gle/nhRCZsUxjyvarTHV7" target="_blank" class="glass-btn p-3 sm:p-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12"/><path d="m2 7 10 5 10-5-10-5z"/><path d="m12 22 5-10"/><path d="M12 22 7 12"/></svg>
+                        Donate
+                    </a>
+                    <a href="https://web.sketchub.in/u/Zelvior" target="_blank" class="glass-btn p-3 sm:p-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                        Sketchub
+                    </a>
+                    <a href="mailto:Zelvior@proton.me" class="glass-btn p-3 sm:p-4 rounded-xl flex items-center justify-center gap-2 text-xs sm:text-sm font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Email
+                    </a>
+                </div>
 
-            <!-- Links Grid -->
-            <div class="grid grid-cols-2 gap-4 mb-10 stagger-3">
-                <a href="https://youtube.com/@thevexo.zelvior" target="_blank" class="glass-btn p-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.11 1 12 1 12s0 3.89.42 5.58a2.78 2.78 0 0 0 1.94 2c1.71.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.89 23 12 23 12s0-3.89-.42-5.58Z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
-                    YouTube
-                </a>
-                <a href="https://forms.gle/nhRCZsUxjyvarTHV7" target="_blank" class="glass-btn p-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12"/><path d="m2 7 10 5 10-5-10-5z"/><path d="m12 22 5-10"/><path d="M12 22 7 12"/></svg>
-                    Donate
-                </a>
-                <a href="https://web.sketchub.in/u/Zelvior" target="_blank" class="glass-btn p-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                    Sketchub
-                </a>
-                <a href="mailto:Zelvior@proton.me" class="glass-btn p-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                    Email
-                </a>
+                <!-- Footer Action -->
+                <button id="continueBtn" class="w-full bg-white text-black font-black uppercase text-[10px] sm:text-xs tracking-widest py-4 sm:py-5 rounded-xl hover:bg-white/90 active:scale-95 transition-all stagger-3 mt-auto">
+                    Continue
+                </button>
             </div>
-
-            <button id="continueBtn" class="w-full bg-white text-black font-black uppercase text-xs tracking-widest py-5 rounded-xl hover:bg-white/90 active:scale-95 transition-all stagger-3 mt-auto">
-                Continue
-            </button>
         </div>
     </div>
 
